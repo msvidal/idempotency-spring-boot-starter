@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: idempotency-spring-boot-starter
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      client-type: lettuce
+      pool:
+        max-active: 8
+        max-idle: 8
+        min-idle: 0
+      timeout: 2000
+
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+      indent-output: true
+    deserialization:
+      fail-on-unknown-properties: false
+    default-property-inclusion: non_null
+    time-zone: America/Sao_Paulo
+
+
+idempotency:
+  ttl:
+    minutes: 5
+  max-cache-size: 10000
+  cleanup:
+    enabled: true
+
+logging:
+  level:
+    com.vidal.idempotency.idempotency: DEBUG
+    org.springframework.aop: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
